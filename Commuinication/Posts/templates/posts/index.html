@@ -1,0 +1,11 @@
+{% extends 'posts/layout.html'%}
+
+{% block content %}
+<h3 class="center-align blue lighten-4">{{title}}</h3>
+
+<ul class="collection">
+    {% for conversation in conversations%}
+        <li class="collection-item"><a href="/posts/details/{{conversation.id}}">{{conversation.title}}</a></li>
+    {% endfor%}
+</ul>
+{% endblock %}
