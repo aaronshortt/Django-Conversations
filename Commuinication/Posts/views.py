@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-from .models import Conversation
+from .models import Conversation, Message, Person
 
 def index(request):
 
@@ -24,3 +24,24 @@ def details(request, id):
     }
 
     return render(request, 'posts/details.html', context)
+
+def addConversation(request):
+    if request.method == 'POST':
+        title = request.POST['title']
+        body = request.POST['body']
+        
+        conversation = Conversation(title = title)
+        message = Message(body = body)
+
+        name = name = request.POST['person']
+        person = Person.objects.get(name = name)
+        message.sender = person
+        
+        message.save()
+        conversation.message = message
+        conversation.save()  
+
+        return redirect('/posts')
+    else:
+        return render(request, 'posts/add-conversation.html')
+
