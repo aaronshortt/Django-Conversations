@@ -1,32 +1,36 @@
 {% extends 'posts/layout.html'%}
 
 {% block content %}
-<h3 class="center-align blue lighten-4">{{conversation.title}}</h3>
+<h3 class="center-align blue-grey lighten-5">{{conversation.title}}</h3>
 
 <div class="card">
-    <div class="card-content">
+    <div class="card-content deep-orange lighten-4">
         {{conversation.body}}
     </div>
-    <div class="card-action">
-        <a href="">User: {{conversation.sender.name}}</a>
-        <a href="">Recieved: {{conversation.created_at}}</a>
+    <div class="card-action deep-orange lighten-2">
+        <a class="white-text" href="">User: {{conversation.sender.name}}</a>
+        <a class="white-text" href="">Recieved: {{conversation.created_at}}</a>
     </div>
     </div>
 </div>
 <br>
-<ul class="collection">
+<ul class="collection container z-depth-1">
         {% for message in messages %}
-        <li style="display:block" class="collection-item center-align">
-                <span class="title">{{message.sender.name}}</span>
-                <p> {{message.body}} <br>
-                    Recieved: {{message.created_at}}
-                </p>
-        </li>
+        <div class="row">
+            <div class="col s6 offset-s3 z-depth-1">
+                <li class="collection-item center-align blue-grey lighten-1 white-text">
+                        <span class="title">{{message.sender.name}}</span>
+                        <p> {{message.body}} <br>
+                            Recieved: {{message.created_at}}
+                        </p>
+                </li>
+            </div>
+        </div>
         {% endfor %}
 </ul>
 <br>
 <br>
-<a style="display:block" class= "center-align waves-effect waves-light btn" href ="/posts/details/{{conversation.id}}/add">Reply</a>
+<a style="display:block" class= "center-align waves-effect waves-light btn container deep-orange" href ="/posts/details/{{conversation.id}}/add">Reply</a>
 <b>
-<a style="display:block" class= "center-align waves-effect waves-light btn" href ="/posts">Go Back</a>
+<a style="display:block" class= "center-align waves-effect waves-light btn container deep-orange" href ="/posts">Go Back</a>
 {% endblock %}
