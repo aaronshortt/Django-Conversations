@@ -19,8 +19,15 @@ def index(request):
 def details(request, id):
 
     conversation = Conversation.objects.get(id = id)
+    messages = None
+    try:
+        messages = Message.objects.filter(conversation_id = id)
+    except:
+        print "Couldnt find any responses for " + id
+
     context = {
-        'conversation': conversation
+        'conversation': conversation,
+        'messages': messages
     }
 
     return render(request, 'posts/details.html', context)
@@ -30,18 +37,43 @@ def addConversation(request):
         title = request.POST['title']
         body = request.POST['body']
         
-        conversation = Conversation(title = title)
-        message = Message(body = body)
+        conversation = Conversation(title = title, body = body)
+        name = request.POST['person']
 
-        name = name = request.POST['person']
-        person = Person.objects.get(name = name)
-        message.sender = person
+        #Change to exists someday...
+        if Person.objects.filter(name = name).count() == 0:
+            person = Person(name= name, email= name+"@email.com")
+        else:
+            person = Person.objects.get(name = name)
+
+        person.save()
+        conversation.sender = person
         
-        message.save()
-        conversation.message = message
         conversation.save()  
 
         return redirect('/posts')
     else:
         return render(request, 'posts/add-conversation.html')
+
+def addMessage(request, id):
+    conversation = Conversation.objects.get(id = id)
+
+    if request.method == 'POST':
+        body = request.POST['body']
+        name = request.POST['person']
+
+        if Person.objects.filter(name = name).count() == 0:
+            person = Person(name= name, email= name+"@email.com")
+        else:
+            person = Person.objects.get(name = name)
+
+        message = Message(body= body, sender = person, conversation = conversation)
+        message.save()
+
+        return redirect('/posts/details/' + id)
+    else:
+        context = {
+            'conversation': conversation
+        }
+        return render(request, 'posts/add-message.html', context)
 

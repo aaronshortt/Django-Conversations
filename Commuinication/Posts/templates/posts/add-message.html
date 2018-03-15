@@ -1,0 +1,17 @@
+{% extends 'posts/layout.html'%}
+{% block content %}
+
+<form action="add" method="POST">{% csrf_token %}
+    <h3 class="center-align blue lighten-4">{{conversation.title}}</h3>
+    <br>
+    <label for="text">Body</label>
+    <textarea class ="materialize-textarea" type="text" name="body" id="body"></textarea>
+    <br>
+    <label for="text">User ID</label>
+    <input type="text" name="person" id="person">
+    <br>
+    <input class= "center-align waves-effect waves-light btn" type="submit" value="submit"/>
+</form>
+<br>
+<a style="display:block" class= "center-align waves-effect waves-light btn" href ="/posts">Go Back</a>
+{% endblock %}

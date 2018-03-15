@@ -8,8 +8,29 @@
         {{conversation.body}}
     </div>
     <div class="card-action">
-        {{conversation.created_at}}
+        <a href="">User: {{conversation.sender.name}}</a>
+        <a href="">Recieved: {{conversation.created_at}}</a>
+    </div>
     </div>
 </div>
+<br>
+<ul class="collection">
+        {% for message in messages%}
+                <li>
+                <div class="card blue-grey dark-1">
+                    <div class="card-content white-text">
+                        {{message.body}}
+                    </div>
+                    <div class="card-action">
+                            <a href="">User: {{message.sender.name}}</a>
+                            <a href="">Recieved: {{message.created_at}}</a>
+                    </div>
+                </div>
+                </li>
+        {% endfor%}
+</ul>
+<br>
+<a style="display:block" class= "center-align waves-effect waves-light btn" href ="/posts/details/{{conversation.id}}/add">Reply</a>
+<b>
 <a style="display:block" class= "center-align waves-effect waves-light btn" href ="/posts">Go Back</a>
 {% endblock %}
