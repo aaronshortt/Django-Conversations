@@ -33,6 +33,7 @@ def details(request, id):
     return render(request, 'posts/details.html', context)
 
 def addConversation(request):
+
     if request.method == 'POST':
         title = request.POST['title']
         body = request.POST['body']
@@ -56,6 +57,7 @@ def addConversation(request):
         return render(request, 'posts/add-conversation.html')
 
 def addMessage(request, id):
+    
     conversation = Conversation.objects.get(id = id)
 
     if request.method == 'POST':

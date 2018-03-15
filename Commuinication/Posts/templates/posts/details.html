@@ -15,20 +15,16 @@
 </div>
 <br>
 <ul class="collection">
-        {% for message in messages%}
-                <li>
-                <div class="card blue-grey dark-1">
-                    <div class="card-content white-text">
-                        {{message.body}}
-                    </div>
-                    <div class="card-action">
-                            <a href="">User: {{message.sender.name}}</a>
-                            <a href="">Recieved: {{message.created_at}}</a>
-                    </div>
-                </div>
-                </li>
-        {% endfor%}
+        {% for message in messages %}
+        <li style="display:block" class="collection-item center-align">
+                <span class="title">{{message.sender.name}}</span>
+                <p> {{message.body}} <br>
+                    Recieved: {{message.created_at}}
+                </p>
+        </li>
+        {% endfor %}
 </ul>
+<br>
 <br>
 <a style="display:block" class= "center-align waves-effect waves-light btn" href ="/posts/details/{{conversation.id}}/add">Reply</a>
 <b>
